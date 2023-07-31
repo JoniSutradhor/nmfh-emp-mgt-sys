@@ -6,7 +6,7 @@ const checkLogin = require("../middlewares/checkLogin");
 const Attendance = new mongoose.model("Attendance", attendanceSchema)
 
 //Get Attendance by ID and Date Range
-router.get("/:id/:startDate/:endDate", async (req, res)=> {
+router.get("/:id/:startDate/:endDate", checkLogin, (req, res)=> {
     Attendance.find({id : req.params.id, date : {
             $gte: req.params.startDate,
             $lt: req.params.endDate
@@ -42,7 +42,7 @@ router.get("/:id/:startDate/:endDate", async (req, res)=> {
 })
 
 //Get attendance taken or not result by date
-router.get("/:date", async (req, res)=> {
+router.get("/:date", checkLogin, (req, res)=> {
     Attendance.find({date : req.params.date})
         .then((data)=> {
             console.log("DATA : ",data)
@@ -70,7 +70,7 @@ router.get("/:date", async (req, res)=> {
 })
 
 //Create Attendance
-router.post("/attendance/create", (req, res)=> {
+router.post("/attendance/create", checkLogin, (req, res)=> {
     const newAttendance = new Attendance(req.body)
     Attendance.insertMany(req.body)
         .then(()=> {

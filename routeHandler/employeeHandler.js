@@ -12,7 +12,7 @@ router.get("/", (req,res)=> {
 })
 
 //Get Employees List
-router.get("/employees", async (req, res)=> {
+router.get("/employees", checkLogin, (req, res)=> {
     Employee.find()
         .then((data)=> {
             res.status(200).json({
