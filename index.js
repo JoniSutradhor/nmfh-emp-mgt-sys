@@ -14,6 +14,9 @@ app.use(express.urlencoded({ extended: false }));
 app.config = {
     port : 4000
 }
+let corsOptions = {
+    origin: ['http://localhost:3000' ]
+};
 
 // database connection with mongoose
 // mongoose.connect(process.env.MONGO_URI_LOCAL_DB)
@@ -22,9 +25,9 @@ mongoose.connect(process.env.MONGO_URI)
     .then(()=> console.log("Connection Successful with MongoDB"))
     .catch((err)=> console.log("ERR : ",err))
 
-app.use("/", employeeHandler)
-app.use("/emp", attendanceHandler)
-app.use("/user", userHandler)
+app.use("/", cors(corsOptions), employeeHandler)
+app.use("/emp", cors(corsOptions), attendanceHandler)
+app.use("/user", cors(corsOptions), userHandler)
 
 app.listen(process.env.PORT || app.config.port, ()=> {
     console.log(`App listening at port ${process.env.PORT || app.config.port}`)
