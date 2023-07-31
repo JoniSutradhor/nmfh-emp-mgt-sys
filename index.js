@@ -15,7 +15,7 @@ app.config = {
     port : 4000
 }
 let corsOptions = {
-    origin: ['http://localhost:3000' ]
+    origin: ['http://localhost:3000' , 'https://nmfh-emp-mgt.sss-infotech.xyz/', 'http://nmfh-emp-mgt.sss-infotech.xyz/']
 };
 
 // database connection with mongoose
