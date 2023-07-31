@@ -28,7 +28,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.use("/", cors(corsOptions), checkLogin, employeeHandler)
 app.use("/emp", cors(corsOptions), checkLogin, attendanceHandler)
-app.use("/user", cors(corsOptions), checkLogin, userHandler)
+app.use("/user", cors(corsOptions), userHandler)
 
 app.listen(process.env.PORT || app.config.port, ()=> {
     console.log(`App listening at port ${process.env.PORT || app.config.port}`)
