@@ -42,7 +42,7 @@ router.post("/login", async (req, res)=> {
                             const token = jwt.sign({
                                 username: user[0].username,
                                 userId: user[0]._id
-                            }, "Code Coffee Computer with Malai", {expiresIn: "1h"})
+                            }, process.env.JWT_SECRET, {expiresIn: "1h"})
                             res.status(200).json({
                                 status_code: 200,
                                 is_data: false,
