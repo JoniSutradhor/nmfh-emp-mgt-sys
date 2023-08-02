@@ -41,11 +41,37 @@ router.get("/:id/:startDate/:endDate", checkLogin, (req, res)=> {
         })
 })
 
+//Get filtered Attendance by Id and Date
+router.get("/:id/:date", checkLogin, (req, res)=> {
+    Attendance.find({id:req.params.id, date:req.params.date})
+        .then((data)=> {
+            if (data.length > 0) {
+                res.status(200).json({
+                    status_code: 200,
+                    is_data: true,
+                    data,
+                    message: "Attendance retrieved successfully!"
+                })
+            }else {
+                res.status(404).json({
+                    status_code: 404,
+                    is_data: false,
+                    data : null,
+                    message: "No Attendance Found!"
+                })
+            }
+        })
+        .catch((err)=> {
+            res.status(500).json({
+                error: err+"There was a server side error!"
+            })
+        })
+})
+
 //Get attendance taken or not result by date
 router.get("/:date", checkLogin, (req, res)=> {
     Attendance.find({date : req.params.date})
         .then((data)=> {
-            console.log("DATA : ",data)
             if (data.length > 0) {
                 res.status(200).json({
                     status_code: 200,
@@ -70,7 +96,7 @@ router.get("/:date", checkLogin, (req, res)=> {
 })
 
 //Create Attendance
-router.post("/attendance/create", checkLogin, (req, res)=> {
+router.post("/create", checkLogin, (req, res)=> {
     const newAttendance = new Attendance(req.body)
     Attendance.insertMany(req.body)
         .then(()=> {
@@ -78,6 +104,30 @@ router.post("/attendance/create", checkLogin, (req, res)=> {
                 status_code: 201,
                 is_data: false,
                 message: "Attendance was inserted successfully!"
+            })
+        })
+        .catch((err)=> {
+            res.status(500).json({
+                error: err+"There was a server side error!"
+            })
+        })
+})
+
+//Update Attendance
+router.put("/update/:id", (req, res)=> {
+    Attendance.updateOne({_id: req.params.id}, {
+        $set : {
+            attendance: req.body.attendance,
+            taken: req.body.taken,
+            comments: req.body.comments,
+            updatedAt: Date.now()
+        }
+    })
+        .then(()=> {
+            res.status(202).json({
+                status_code: 202,
+                is_data: false,
+                message: "Attendance was updated successfully!"
             })
         })
         .catch((err)=> {

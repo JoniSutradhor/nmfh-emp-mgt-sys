@@ -26,7 +26,8 @@ const attendanceSchema = mongoose.Schema({
         required: true
     },
     taken: String,
-    comments: String
+    comments: String,
+    updatedAt: Date
 })
 
 module.exports = attendanceSchema

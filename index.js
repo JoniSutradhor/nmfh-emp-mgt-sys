@@ -18,15 +18,15 @@ let corsOptions = {
 };
 
 // database connection with mongoose
-// mongoose.connect(process.env.MONGO_URI_LOCAL_DB)
+mongoose.connect(process.env.MONGO_URI_LOCAL_DB)
 // mongoose.connect(process.env.MONGO_URI_LOCAL)
-mongoose.connect(process.env.MONGO_URI)
+// mongoose.connect(process.env.MONGO_URI)
     .then(()=> console.log("Connection Successful with MongoDB"))
     .catch((err)=> console.log("ERR : ",err))
 
-app.use("/", cors(corsOptions), employeeHandler)
-app.use("/emp", cors(corsOptions), attendanceHandler)
 app.use("/user", cors(corsOptions), userHandler)
+app.use("/employee", cors(corsOptions), employeeHandler)
+app.use("/attendance", cors(corsOptions), attendanceHandler)
 
 app.listen(process.env.PORT || app.config.port, ()=> {
     console.log(`App listening at port ${process.env.PORT || app.config.port}`)
