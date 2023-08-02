@@ -18,9 +18,9 @@ let corsOptions = {
 };
 
 // database connection with mongoose
-mongoose.connect(process.env.MONGO_URI_LOCAL_DB)
+// mongoose.connect(process.env.MONGO_URI_LOCAL_DB)
 // mongoose.connect(process.env.MONGO_URI_LOCAL)
-// mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI)
     .then(()=> console.log("Connection Successful with MongoDB"))
     .catch((err)=> console.log("ERR : ",err))
 
