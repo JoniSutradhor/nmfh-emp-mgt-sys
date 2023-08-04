@@ -11,6 +11,8 @@ router.get("/:id/:startDate/:endDate", checkLogin, (req, res)=> {
             $gte: req.params.startDate,
             $lt: req.params.endDate
         }})
+        .sort({date: "asc"})
+        // .exec()
         // .select({
         //     _id: 0,
         //     createdAt :0,
