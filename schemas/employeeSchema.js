@@ -5,7 +5,8 @@ const employeeSchema = new mongoose.Schema({
     designation: String,
     salary: Number,
     startingOn: Date,
-    advance: Number
+    advance: Number,
+    payableDue: Number
 })
 
 module.exports = employeeSchema
