@@ -45,7 +45,7 @@ router.get("/:id/:startDate/:endDate", checkLogin, (req, res)=> {
 
 //Get filtered Attendance by Id and Date
 router.get("/:id/:date", checkLogin, (req, res)=> {
-    Attendance.find({id:req.params.id, date:req.params.date})
+    Attendance.find(req.params.id === "all" ? {date:req.params.date} : {id:req.params.id, date:req.params.date})
         .then((data)=> {
             if (data.length > 0) {
                 res.status(200).json({
