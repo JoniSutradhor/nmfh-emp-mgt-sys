@@ -32,7 +32,7 @@ router.get("/list", checkLogin, (req, res)=> {
 
 //Get employee details by id
 router.get("/details/:id", async (req, res)=> {
-    Employee.find({id:req.params.id})
+    Employee.find({_id: req.params.id})
         .then((data)=> {
             if (data.length > 0) {
                 res.status(200).json({
