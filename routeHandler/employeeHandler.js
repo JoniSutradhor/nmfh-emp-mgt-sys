@@ -31,8 +31,30 @@ router.get("/list", checkLogin, (req, res)=> {
 
 
 //Get employee details by id
-router.get("/:id", async (req, res)=> {
-
+router.get("/details/:id", async (req, res)=> {
+    Employee.find({id:req.params.id})
+        .then((data)=> {
+            if (data.length > 0) {
+                res.status(200).json({
+                    status_code: 200,
+                    is_data: true,
+                    data,
+                    message: "Employee data retrieved successfully!"
+                })
+            }else {
+                res.status(404).json({
+                    status_code: 404,
+                    is_data: false,
+                    data : null,
+                    message: "No Employee Found!"
+                })
+            }
+        })
+        .catch((err)=> {
+            res.status(500).json({
+                error: err+"There was a server side error!"
+            })
+        })
 })
 
 //Create Employee
