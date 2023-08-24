@@ -53,19 +53,48 @@ router.post("/create", (req, res)=> {
         })
 })
 
-//Post multiple Employee
-router.get("/all", async (req, res)=> {
-
-})
-
-//Put multiple employee
-router.put("/:id", async (req, res)=> {
-
+//Update Employee
+router.post("/update/:id", (req, res)=> {
+    Employee.updateOne({_id: req.params.id}, {
+        $set : {
+            name: req.body.name,
+            designation: req.body.designation,
+            salary: req.body.salary,
+            startingOn: req.body.startingOn,
+            advance: req.body.advance,
+            payableDue: req.body.payableDue,
+            status: req.body.status
+        }
+    })
+        .then(()=> {
+            res.status(202).json({
+                status_code: 202,
+                is_data: false,
+                message: "Employee was updated successfully!"
+            })
+        })
+        .catch((err)=> {
+            res.status(500).json({
+                error: "There was a server side error!"
+            })
+        })
 })
 
 //Delete Employee
-router.delete("/:id", async (req, res)=> {
-
+router.delete("/delete/:id", async (req, res)=> {
+    Employee.deleteOne({_id: req.params.id})
+        .then(()=> {
+            res.status(202).json({
+                status_code: 202,
+                is_data: false,
+                message: "Employee was deleted successfully!"
+            })
+        })
+        .catch((err)=> {
+            res.status(500).json({
+                error: "There was a server side error!"
+            })
+        })
 })
 
 module.exports = router

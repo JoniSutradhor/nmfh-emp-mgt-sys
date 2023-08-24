@@ -139,4 +139,21 @@ router.put("/update/:id", (req, res)=> {
         })
 })
 
+//Delete Attendance
+router.delete("/delete/:date", (req, res)=> {
+    Attendance.deleteMany({date: req.params.date})
+        .then(()=> {
+            res.status(202).json({
+                status_code: 202,
+                is_data: false,
+                message: "Attendances was delete successfully!"
+            })
+        })
+        .catch((err)=> {
+            res.status(500).json({
+                error: "There was a server side error!"
+            })
+        })
+})
+
 module.exports = router
