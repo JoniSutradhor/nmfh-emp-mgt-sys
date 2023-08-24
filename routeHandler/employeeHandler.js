@@ -54,7 +54,7 @@ router.post("/create", (req, res)=> {
 })
 
 //Update Employee
-router.post("/update/:id", (req, res)=> {
+router.put("/update/:id", (req, res)=> {
     Employee.updateOne({_id: req.params.id}, {
         $set : {
             name: req.body.name,
