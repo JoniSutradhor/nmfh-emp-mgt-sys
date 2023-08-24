@@ -34,7 +34,7 @@ router.get("/list", checkLogin, (req, res)=> {
 router.get("/details/:id", async (req, res)=> {
     Employee.findOne({_id: req.params.id})
         .then((data)=> {
-            if (data.length > 0) {
+            if (!!data) {
                 res.status(200).json({
                     status_code: 200,
                     is_data: true,
